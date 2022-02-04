@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vakinha_burguer_mobile/app/core/ui/widgets/vakinha_appbar.dart';
 import 'package:vakinha_burguer_mobile/app/core/ui/widgets/vakinha_button.dart';
 import 'package:vakinha_burguer_mobile/app/core/ui/widgets/vakinha_textformfield.dart';
 
@@ -15,21 +16,19 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Splash'),
-      ),
+      appBar: VakinhaAppbar(),
       body: Column(
-        children: const [
-          SizedBox(
+        children: [
+          const SizedBox(
             height: 20,
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(16.0),
             child: VakinhaTextformfield(
               label: 'Text Form',
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           VakinhaButton(

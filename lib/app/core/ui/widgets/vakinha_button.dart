@@ -9,7 +9,7 @@ class VakinhaButton extends StatelessWidget {
 
   const VakinhaButton({
     Key? key,
-    this.onPressed,
+    required this.onPressed,
     required this.label,
     this.width,
     this.height = 50,
