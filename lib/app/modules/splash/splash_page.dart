@@ -43,7 +43,9 @@ class _SplashPageState extends State<SplashPage> {
                       height: 60,
                     ),
                     VakinhaButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed('/auth/login');
+                      },
                       label: 'ACESSAR',
                       width: context.widthTransformer(reducedBy: 40),
                       height: 35,
