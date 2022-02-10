@@ -10,13 +10,13 @@ class RestClient extends GetConnect {
 
 class RestClientException implements Exception {
   final int? code;
-  final String massage;
+  final String message;
 
   RestClientException(
-    this.massage, {
+    this.message, {
     this.code,
   });
 
   @override
-  String toString() => 'RestClientException(code: $code, massage: $massage)';
+  String toString() => 'RestClientException(code: $code, message: $message)';
 }
