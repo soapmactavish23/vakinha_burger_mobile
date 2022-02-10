@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:vakinha_burguer_mobile/app/core/ui/vakinha_ui.dart';
+import 'package:vakinha_burguer_mobile/app/core/ui/vakinha_state.dart';
 import 'package:vakinha_burguer_mobile/app/core/ui/widgets/vakinha_appbar.dart';
 import 'package:vakinha_burguer_mobile/app/core/ui/widgets/vakinha_button.dart';
 import 'package:vakinha_burguer_mobile/app/core/ui/widgets/vakinha_textformfield.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
+import 'package:vakinha_burguer_mobile/app/modules/auth/register/register_controller.dart';
+import 'package:validatorless/validatorless.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState
+    extends VakinhaState<RegisterPage, RegisterController> {
+  final formKey = GlobalKey<FormState>();
+  final _nameEC = TextEditingController();
+  final _emailEC = TextEditingController();
+  final _passwordEC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +36,7 @@ class RegisterPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Form(
+                  key: formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -39,24 +53,44 @@ class RegisterPage extends StatelessWidget {
                       ),
                       VakinhaTextformfield(
                         label: 'Nome',
+                        controller: _nameEC,
+                        validator: Validatorless.required('Nome Obrigatório'),
                       ),
                       const SizedBox(
                         height: 30,
                       ),
                       VakinhaTextformfield(
                         label: 'E-mail',
+                        controller: _emailEC,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('E-mail Obrigatório'),
+                          Validatorless.email('E-mail inválido')
+                        ]),
                       ),
                       const SizedBox(
                         height: 30,
                       ),
                       VakinhaTextformfield(
                         label: 'Senha',
+                        obscureText: true,
+                        controller: _passwordEC,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Senha Obrigatória'),
+                          Validatorless.min(
+                              6, 'Senha deve conter pelo menos 6 caracteres'),
+                        ]),
                       ),
                       const SizedBox(
                         height: 30,
                       ),
                       VakinhaTextformfield(
                         label: 'Confirmar Senha',
+                        obscureText: true,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Confirma Senha Obrigatória'),
+                          Validatorless.compare(_passwordEC,
+                              'Senha diferentemente de confirma senha')
+                        ]),
                       ),
                       const SizedBox(
                         height: 30,
@@ -65,7 +99,11 @@ class RegisterPage extends StatelessWidget {
                         child: VakinhaButton(
                           width: context.width,
                           label: 'Cadastrar',
-                          onPressed: () {},
+                          onPressed: () {
+                            final formValid =
+                                formKey.currentState?.validate() ?? false;
+                            if (formValid) {}
+                          },
                         ),
                       ),
                     ],
